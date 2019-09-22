@@ -9,29 +9,30 @@ import org.apache.spark.sql.SQLContext
 
 class Movie(title:String) {
 
-  def find():String = {
-    val spark = SparkSession
-      .builder()
-      .appName("Spark Movie Finder")
-      .config("spark.master", "local")
-      .getOrCreate()
-    import spark.implicits._
+  val spark = SparkSession
+    .builder()
+    .appName("Spark Movie Finder")
+    .config("spark.master", "local")
+    .getOrCreate()
+  import spark.implicits._
 
-    val df: DataFrame = spark.read.format("org.apache.spark.csv")
-        .option("header", true)
-        .option("inferSchema", true)
-        .csv("data/the-movies-dataset/movies_metadata.csv")
+  val df: DataFrame = spark.read.format("org.apache.spark.csv")
+    .option("header", true)
+    .option("inferSchema", true)
+    .option("escape", "\"")
+    .csv("data/the-movies-dataset/movies_metadata.csv")
 
-       val trimmedDF = df.withColumn(
-        "trimmed_title",
-        trim(col("title"))
-      )
-      //val movies =  df.filter($"title".like("%" + title + "%"))
-      val movies =  trimmedDF.filter($"trimmed_title".===(title))
-      movies.show()
-      val foundtitle = movies.first().getAs[String]("title")
-      //val selectedData: Unit = df.filter("trim(title) = 'Plan 9 From Outer Space'").show()
-      return foundtitle
+  val trimmedDF = df.withColumn(
+    "trimmed_title",
+    trim(col("title"))
+  )
+  //val movies =  df.filter($"title".like("%" + title + "%"))
+  val matched_movies =  trimmedDF.filter($"trimmed_title".===(title))
+  matched_movies.show()
+
+  def findId():String = {
+      val foundTitle = matched_movies.first().getAs[String]("id")
+      return foundTitle
 
   }
 }
