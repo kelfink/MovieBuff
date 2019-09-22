@@ -4,6 +4,6 @@ import org.scalatest.FunSuite
 class MovieTest extends FunSuite {
     test("FindMovie get title") {
       assert("X" === "X")
-      assert(new Movie().find("Tank Girl") === "Tank Girl")
+      assert(new Movie("Tank Girl").find() === "Tank Girl")
     }
 }

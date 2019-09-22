@@ -7,9 +7,9 @@ import org.apache.spark.sql.functions._
 
 import org.apache.spark.sql.SQLContext
 
-class Movie {
+class Movie(title:String) {
 
-  def find(title:String):String = {
+  def find():String = {
     val spark = SparkSession
       .builder()
       .appName("Spark Movie Finder")
