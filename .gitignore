@@ -1,5 +1,7 @@
 project/target/
 target/
+data/
+data
 data/the-movies-dataset/
 data/the-movies-dataset
 data/the-movies-dataset/credits.csv
