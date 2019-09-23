@@ -1,11 +1,7 @@
 package com.moviechallenge
 
-import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.{DataFrame, SparkSession, Row}
 import org.apache.spark.sql.functions._
-//import org.apache.spark.sql.types._
-
-import org.apache.spark.sql.SQLContext
 
 class Movie(title:String) {
 
@@ -26,9 +22,9 @@ class Movie(title:String) {
     "trimmed_title",
     trim(col("title"))
   )
-  //val movies =  df.filter($"title".like("%" + title + "%"))
+
   val matched_movies =  trimmedDF.filter($"trimmed_title".===(title))
-  matched_movies.show()
+  // matched_movies.show()
 
   def findId():String = {
       val foundTitle = matched_movies.first().getAs[String]("id")

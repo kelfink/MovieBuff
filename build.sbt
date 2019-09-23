@@ -14,3 +14,5 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
 
 libraryDependencies += "org.apache.spark" %%   "spark-sql" % sparkVersion
+// https://mvnrepository.com/artifact/net.liftweb/lift-json
+libraryDependencies += "net.liftweb" %% "lift-json" % "3.3.0"
